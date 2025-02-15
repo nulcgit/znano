@@ -1,3 +1,3 @@
 # Znano
 
-Znano - simple book reader / Знано - простая читалка книг
+Znano - web viewer / Знано - сетевая смотрелка
