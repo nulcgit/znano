@@ -1,0 +1,27 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Debug Electron Main Process",
+        "type": "node",
+        "request": "launch",
+        "cwd": "${workspaceFolder}",
+        "runtimeExecutable": "yarn",
+        "runtimeArgs": ["start"],
+        "windows": {
+          "runtimeExecutable": "yarn.cmd"
+        },
+        "console": "integratedTerminal",
+        "protocol": "inspector",
+        "skipFiles": ["<node_internals>/**"]
+      },
+      {
+        "name": "Debug Electron Renderer Process",
+        "type": "chrome",
+        "request": "attach",
+        "port": 9222,
+        "webRoot": "${workspaceFolder}",
+        "timeout": 30000
+      }
+    ]
+  }
