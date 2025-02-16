@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Bar</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 10px;
+            display: flex;
+            background-color: #f1f1f1;
+        }
+        #url-input {
+            flex: 1;
+            margin: 0 10px;
+            padding: 5px;
+        }
+        button {
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+    <button id="home-btn">H</button>
+    <button id="back-btn">&lt</button>
+    <button id="reload-btn">@</button>
+    <button id="forward-btn">&gt</button>
+    <input type="text" id="url-input" placeholder="Enter URL">
+    <button id="go-btn">Go</button>
+
+    <script>
+        document.getElementById('home-btn').addEventListener('click', () => {
+            window.electron.goHome();
+        });
+
+        document.getElementById('back-btn').addEventListener('click', () => {
+            window.electron.goBack();
+        });
+
+        document.getElementById('forward-btn').addEventListener('click', () => {
+            window.electron.goForward();
+        });
+
+        document.getElementById('reload-btn').addEventListener('click', () => {
+            window.electron.reload();
+        });
+
+        document.getElementById('go-btn').addEventListener('click', () => {
+            const url = document.getElementById('url-input').value;
+            window.electron.navigate(url);
+        });
+
+        document.getElementById('url-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const url = document.getElementById('url-input').value;
+                window.electron.navigate(url);
+            }
+        });
+    </script>
+</body>
+</html>
