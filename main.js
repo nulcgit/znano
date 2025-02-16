@@ -74,14 +74,14 @@ function createWindows() {
     });
 
     ipcMain.on('go-home', () => {
+        ipcMain.emit('navigate');
         const homeUrl = `file://${path.join(__dirname, 'index.html')}`;
         browserWindow.loadURL(homeUrl);
     });
 
     navWindow.on('close', () => {
-        if (browserWindow) {
-            browserWindow.close();
-        }
+        if (!browserWindow || browserWindow.isDestroyed()) {
+        } else browserWindow.close();
     });
 }
 
