@@ -5,9 +5,10 @@ let navWindow;
 let browserWindow;
 
 function createWindows() {
+    const { width, height } = require('electron').screen.getPrimaryDisplay().workAreaSize;
     // Create the navigation window
     navWindow = new BrowserWindow({
-        width: 1200,
+        width: width,
         height: 55,
         webPreferences: {
             preload: path.join(__dirname, 'preload-nav.js'),
@@ -21,8 +22,8 @@ function createWindows() {
     navWindow.setMenuBarVisibility(false);
     // Create the browser window
     browserWindow = new BrowserWindow({
-        width: 1200,
-        height: 600,
+        width: width,
+        height: height-110,
         webPreferences: {
             preload: path.join(__dirname, 'preload-browser.js'),
             contextIsolation: true,
@@ -35,9 +36,8 @@ function createWindows() {
     browserWindow.loadURL('https://www.google.com'); // Default URL
 
     // Position the windows side by side
-    const { width, height } = require('electron').screen.getPrimaryDisplay().workAreaSize;
     navWindow.setPosition(0, 0);
-    browserWindow.setPosition(0, 100);
+    browserWindow.setPosition(0, 110);
 
     // Handle navigation commands from the navigation window
     ipcMain.on('navigate', (event, url) => {
