@@ -64,14 +64,13 @@ function createWindows() {
         browserWindow.loadURL(homeUrl);
     });
 
-    currentUrl = "";
     browserWindow.webContents.on('did-create-window', (childWindow) => {
-      childWindow.webContents.on('will-navigate', (e, url) => {
-        e.preventDefault()
-        currentUrl = url;
-        childWindow.close()
+       childWindow.webContents.on('will-navigate', (e, url) => {
+        e.preventDefault();
+        childWindow.close();
+        browserWindow.loadURL(url);
       })
-      browserWindow.loadURL(currentUrl);
+      
     })
 
     browserWindow.webContents.on('did-navigate', () => {
