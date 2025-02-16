@@ -6,7 +6,7 @@ let browserWindow;
 
 function createWindows() {
     const { width, height } = require('electron').screen.getPrimaryDisplay().workAreaSize;
-    // Create the navigation window
+
     navWindow = new BrowserWindow({
         width: width,
         height: 55,
@@ -20,31 +20,45 @@ function createWindows() {
     navWindow.loadFile('nav.html');
 
     navWindow.setMenuBarVisibility(false);
-    // Create the browser window
-    browserWindow = new BrowserWindow({
-        width: width,
-        height: height-110,
-        webPreferences: {
-            preload: path.join(__dirname, 'preload-browser.js'),
-            contextIsolation: true,
-            enableRemoteModule: false,
-        },
-    });
-
-    browserWindow.setMenuBarVisibility(false);
-
-    browserWindow.loadURL('https://www.google.com'); // Default URL
-  
-    // Position the windows side by side
     navWindow.setPosition(0, 0);
-    browserWindow.setPosition(0, 110);
 
-    // Handle navigation commands from the navigation window
     ipcMain.on('navigate', (event, url) => {
-      if (!/^https?:\/\//i.test(url)) {
-        url = 'http://' + url;
-      }
+        if (!browserWindow || browserWindow.isDestroyed()) {
+            browserWindow = new BrowserWindow({
+                width: width,
+                height: height - 110,
+                webPreferences: {
+                    preload: path.join(__dirname, 'preload-browser.js'),
+                    contextIsolation: true,
+                    enableRemoteModule: false,
+                },
+            });
+
+            browserWindow.setMenuBarVisibility(false);
+            navWindow.setPosition(0, 0);
+            browserWindow.setPosition(0, 110);
+
+        }
+        if (url === 'about:blank' || url === '') {
+            url = 'https://google.com';
+        }
+        if (!/^https?:\/\//i.test(url)) {
+            url = 'http://' + url;
+        }
         browserWindow.loadURL(url);
+        browserWindow.webContents.on('did-create-window', (childWindow) => {
+            childWindow.webContents.on('will-navigate', (e, url) => {
+                e.preventDefault();
+                childWindow.close();
+                browserWindow.loadURL(url);
+            })
+
+        })
+
+        browserWindow.webContents.on('did-navigate', () => {
+            const currentUrl = browserWindow.webContents.getURL();
+            navWindow.webContents.executeJavaScript(`document.getElementById('url-input').value = '${currentUrl}';`);
+        });
     });
 
     ipcMain.on('go-back', () => {
@@ -64,29 +78,11 @@ function createWindows() {
         browserWindow.loadURL(homeUrl);
     });
 
-    browserWindow.webContents.on('did-create-window', (childWindow) => {
-       childWindow.webContents.on('will-navigate', (e, url) => {
-        e.preventDefault();
-        childWindow.close();
-        browserWindow.loadURL(url);
-      })
-      
-    })
-
-    browserWindow.webContents.on('did-navigate', () => {
-      const currentUrl = browserWindow.webContents.getURL();
-      navWindow.webContents.executeJavaScript(`document.getElementById('url-input').value = '${currentUrl}';`);
-    });
-    
     navWindow.on('close', () => {
-      if (browserWindow) {
-          browserWindow.close();
-      }
+        if (browserWindow) {
+            browserWindow.close();
+        }
     });
-
-    // Open DevTools (optional)
-    //navWindow.webContents.openDevTools({ mode: 'detach' });
-    //browserWindow.webContents.openDevTools({ mode: 'detach' });
 }
 
 app.whenReady().then(createWindows);
