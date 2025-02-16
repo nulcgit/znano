@@ -4,31 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Navigation Bar</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 10px;
-            display: flex;
-            background-color: #f1f1f1;
-        }
-        #url-input {
-            flex: 1;
-            margin: 0 10px;
-            padding: 5px;
-        }
-        button {
-            padding: 5px 10px;
-        }
-    </style>
 </head>
-<body>
+<body style="background-color: #f1f1f1;">
     <button id="home-btn">H</button>
     <button id="back-btn">&lt</button>
     <button id="reload-btn">@</button>
     <button id="forward-btn">&gt</button>
-    <input type="text" id="url-input" placeholder="Enter URL">
     <button id="go-btn">Go</button>
-
+    <input type="text" id="url-input" placeholder="Enter URL" style="width: 90%;">
+    <br>
+    <button id="btn2">B2</button>
+     
     <script>
         document.getElementById('home-btn').addEventListener('click', () => {
             window.electron.goHome();

@@ -34,7 +34,7 @@ function createWindows() {
     browserWindow.setMenuBarVisibility(false);
 
     browserWindow.loadURL('https://www.google.com'); // Default URL
-
+  
     // Position the windows side by side
     navWindow.setPosition(0, 0);
     browserWindow.setPosition(0, 110);
@@ -63,6 +63,16 @@ function createWindows() {
         const homeUrl = `file://${path.join(__dirname, 'index.html')}`;
         browserWindow.loadURL(homeUrl);
     });
+
+    currentUrl = "";
+    browserWindow.webContents.on('did-create-window', (childWindow) => {
+      childWindow.webContents.on('will-navigate', (e, url) => {
+        e.preventDefault()
+        currentUrl = url;
+        childWindow.close()
+      })
+      browserWindow.loadURL(currentUrl);
+    })
 
     browserWindow.webContents.on('did-navigate', () => {
       const currentUrl = browserWindow.webContents.getURL();
