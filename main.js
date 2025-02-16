@@ -63,6 +63,11 @@ function createWindows() {
         const homeUrl = `file://${path.join(__dirname, 'index.html')}`;
         browserWindow.loadURL(homeUrl);
     });
+
+    browserWindow.webContents.on('did-navigate', () => {
+      const currentUrl = browserWindow.webContents.getURL();
+      navWindow.webContents.executeJavaScript(`document.getElementById('url-input').value = '${currentUrl}';`);
+    });
     
     navWindow.on('close', () => {
       if (browserWindow) {
