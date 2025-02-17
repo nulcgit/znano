@@ -13,7 +13,7 @@
     <button id="go-btn">Go</button>
     <input type="text" id="url-input" placeholder="Enter URL" style="width: 90%;">
     <br>
-    <button id="btn2">B2</button>
+    <button id="save-page" title="Save current page">Save</button>
      
     <script>
         document.getElementById('home-btn').addEventListener('click', () => {
@@ -35,7 +35,7 @@
         document.getElementById('go-btn').addEventListener('click', () => {
             const url = document.getElementById('url-input').value;
             window.electron.navigate(url);
-        });
+        });        
 
         document.getElementById('url-input').addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
@@ -43,6 +43,11 @@
                 window.electron.navigate(url);
             }
         });
+
+        document.getElementById('save-page').addEventListener('click', () => {
+            window.electron.savePage()
+        });
+        
     </script>
 </body>
 </html>

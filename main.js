@@ -1,11 +1,16 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
+const fs = require('fs');
 
 let navWindow;
 let browserWindow;
 
 function createWindows() {
     const { width, height } = require('electron').screen.getPrimaryDisplay().workAreaSize;
+    const dataDir = path.join(__dirname, 'data');
+    if (!fs.existsSync(dataDir)) {
+        fs.mkdirSync(dataDir);
+    }
 
     navWindow = new BrowserWindow({
         width: width,
@@ -77,6 +82,14 @@ function createWindows() {
         ipcMain.emit('navigate');
         const homeUrl = `file://${path.join(__dirname, 'index.html')}`;
         browserWindow.loadURL(homeUrl);
+    });
+
+    ipcMain.on('save-page', (event) => {
+        browserWindow.webContents.savePage(`${path.join(__dirname, 'data', 'saved.html')}`, 'HTMLComplete').then(() => {
+            console.log('Page saved successfully');
+        }).catch((error) => {
+            console.error('Failed to save page:', error);
+        });
     });
 
     navWindow.on('close', () => {

@@ -6,4 +6,5 @@ contextBridge.exposeInMainWorld('electron', {
     goForward: () => ipcRenderer.send('go-forward'),
     reload: () => ipcRenderer.send('reload'),
     goHome: () => ipcRenderer.send('go-home'),
+    savePage: () => ipcRenderer.send('save-page'),
 });
