@@ -1,3 +1,3 @@
 # Znano
 
-Znano - web viewer / Знано - сетевая смотрелка
+Znano - feed compiler / Знано - сборник каналов
