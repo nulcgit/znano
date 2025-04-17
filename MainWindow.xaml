@@ -4,9 +4,72 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Znano"
+        xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Znano" Height="720" Width="1280">
+    <Window.Resources>
+        <!-- TabItem Template with Close Button -->
+        <Style TargetType="TabItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="1,1,1,0" 
+                                Margin="0,0,2,0">
+                            <StackPanel Orientation="Horizontal" Margin="5,2">
+                                <ContentPresenter ContentSource="Header" VerticalAlignment="Center"/>
+                                <Button x:Name="CloseTabButton" 
+                                        Content="×" 
+                                        Width="16" 
+                                        Height="16" 
+                                        Margin="5,0,0,0"
+                                        FontWeight="Bold"
+                                        Background="Transparent"
+                                        BorderThickness="0"
+                                        Cursor="Hand"
+                                        Click="CloseTabButton_Click">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Template">
+                                                <Setter.Value>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Border Background="{TemplateBinding Background}">
+                                                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </Style>
+                                    </Button.Style>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <DockPanel LastChildFill="True">
+        <!-- Navigation Bar -->
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5">
+            <Button x:Name="BackButton" Content="&lt;" Width="60" Margin="2" Click="BackButton_Click" IsEnabled="False"/>
+            <Button x:Name="ReloadButton" Content="@" Width="60" Margin="2" Click="ReloadButton_Click"/>
+            <Button x:Name="ForwardButton" Content="&gt;" Width="60" Margin="2" Click="ForwardButton_Click" IsEnabled="False"/>
+            <Button x:Name="StopButton" Content="X" Width="60" Margin="2" Click="StopButton_Click"/>
+            <TextBox x:Name="UrlTextBox" Width="600" Margin="2" KeyDown="UrlTextBox_KeyDown" VerticalContentAlignment="Center"/>
+            <Button x:Name="GoButton" Content="Go" Width="60" Margin="2" Click="GoButton_Click"/>
+            <Button x:Name="NewTabButton" Content="+" Width="30" Margin="2" Click="NewTabButton_Click"/>
+        </StackPanel>
 
-    </Grid>
+        <!-- Tab Control -->
+        <TabControl x:Name="TabControl" DockPanel.Dock="Bottom" SelectionChanged="TabControl_SelectionChanged">
+            <TabItem Header="New Tab">
+                <Grid>
+                    <wv2:WebView2 x:Name="InitialWebView" NavigationStarting="WebView_NavigationStarting" 
+                                 NavigationCompleted="WebView_NavigationCompleted"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </DockPanel>
 </Window>
