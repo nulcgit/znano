@@ -56,6 +56,7 @@ namespace Znano
                     webView.Source = new Uri(url);
                 }
             };
+            NavigateToUrl();
         }
 
         private void WebView_NavigationStarting(object sender, CoreWebView2NavigationStartingEventArgs e)
