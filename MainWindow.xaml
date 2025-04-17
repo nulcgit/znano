@@ -53,12 +53,12 @@
     <DockPanel LastChildFill="True">
         <!-- Navigation Bar -->
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5">
-            <Button x:Name="BackButton" Content="&lt;" Width="60" Margin="2" Click="BackButton_Click" IsEnabled="False"/>
-            <Button x:Name="ReloadButton" Content="@" Width="60" Margin="2" Click="ReloadButton_Click"/>
-            <Button x:Name="ForwardButton" Content="&gt;" Width="60" Margin="2" Click="ForwardButton_Click" IsEnabled="False"/>
-            <Button x:Name="StopButton" Content="X" Width="60" Margin="2" Click="StopButton_Click"/>
-            <TextBox x:Name="UrlTextBox" Width="600" Margin="2" KeyDown="UrlTextBox_KeyDown" VerticalContentAlignment="Center"/>
-            <Button x:Name="GoButton" Content="Go" Width="60" Margin="2" Click="GoButton_Click"/>
+            <Button x:Name="BackButton" Content="&lt;" Width="30" Margin="2" Click="BackButton_Click" IsEnabled="False"/>
+            <Button x:Name="ReloadButton" Content="@" Width="30" Margin="2" Click="ReloadButton_Click"/>
+            <Button x:Name="ForwardButton" Content="&gt;" Width="30" Margin="2" Click="ForwardButton_Click" IsEnabled="False"/>
+            <Button x:Name="StopButton" Content="X" Width="30" Margin="2" Click="StopButton_Click"/>
+            <TextBox x:Name="UrlTextBox" Width="300" Margin="2" KeyDown="UrlTextBox_KeyDown" VerticalContentAlignment="Center"/>
+            <Button x:Name="GoButton" Content="Go" Width="30" Margin="2" Click="GoButton_Click"/>
             <Button x:Name="NewTabButton" Content="+" Width="30" Margin="2" Click="NewTabButton_Click"/>
         </StackPanel>
 
