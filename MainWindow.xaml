@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Znano"
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
-        Title="Znano" Height="720" Width="1280">
+        Title="Znano" Height="720" Width="1280" Icon="/icon.ico">
     <Window.Resources>
         <!-- TabItem Template with Close Button -->
         <Style TargetType="TabItem">
