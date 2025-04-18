@@ -1,0 +1,1 @@
+start %ZNANO%\Znano.exe
