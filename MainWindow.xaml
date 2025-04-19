@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Znano"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         mc:Ignorable="d"
         Title="Znano" Height="720" Width="1280" Icon="/icon.ico">
@@ -51,6 +52,17 @@
         </Style>
     </Window.Resources>
     <DockPanel LastChildFill="True">
+        <DockPanel DockPanel.Dock="Bottom">
+            <tb:TaskbarIcon IconSource="icon.ico" ToolTipText="Znano" Visibility="Visible" MenuActivation="LeftOrRightClick">
+                <tb:TaskbarIcon.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Open" Click="Open_OnClick" />
+                        <MenuItem Header="Hide" Click="Hide_OnClick" />
+                    </ContextMenu>
+                </tb:TaskbarIcon.ContextMenu>
+            </tb:TaskbarIcon>
+            <TextBox Name = "statusBar" Text="Znano v.0.0.1" />
+        </DockPanel>
         <!-- Navigation Bar -->
         <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="5">
             <Button x:Name="BackButton" Content="&lt;" Width="30" Margin="2" Click="BackButton_Click" IsEnabled="False"/>
