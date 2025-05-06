@@ -7,7 +7,7 @@ feedout="$ZNANO/data/share/log/feeds.csv"
 feedin="$ZNANO/data/feeds.csv"
 
 while [ -s "$feedin" ]; do
-    feed=$(head -n 1 "$feedin" | awk '{print $2}')
+    feed=$(head -n 1 "$feedin" | awk -F'\t' '{print $2}')
 echo $feed
     python -m reader add $feed
     echo -e "$(head -n 1 $feedin)" >> $feedout

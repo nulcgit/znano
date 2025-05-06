@@ -115,6 +115,10 @@ ipfs cat QmYwoMEk7EvxXi6LcS2QE6GqaEYQGzfGaTJ9oe1m2RBgfs/test.txt
 echo -n "IPFSmount status:"
 cat /ipfs/QmYwoMEk7EvxXi6LcS2QE6GqaEYQGzfGaTJ9oe1m2RBgfs/test.txt
 
+cat <<EOF > data/feeds.csv
+Habr.Com	https://habr.com/ru/rss/all/all/	Хабр — русскоязычный веб-сайт в формате системы тематических коллективных блогов (именуемых хабами) с элементами новостного сайта, созданный для публикации новостей, аналитических статей, мыслей, связанных с информационными технологиями, бизнесом и интернетом.
+EOF
+
 cd $ZNANO
 sleep 9
 rm -rf temp
