@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 cd "$(dirname "$0")"
-mkdir -p temp apps data
+mkdir -p temp apps data/share/log
 (echo -e "$(date -u) Znano installation started.") >> $PWD/data/log.txt
 sudo apt update
 read -p "Enter IPFS port(default 4011): " IPFSPORT

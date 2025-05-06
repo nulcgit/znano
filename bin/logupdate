@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+hash=$(ipfs add -r --nocopy -Q "$ZNANO/data/share/log")
+ipfspub "$hash"
