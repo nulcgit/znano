@@ -6,7 +6,7 @@ Znano - simple small system / Знано - простая маленькая с�
 
 1. DownLoad package from https://github.com/nulcgit/znano/releases
 2. UnZip znano.zip
-3. run ./znano.sh
+3. run ./znano
 
 ### Build
 
